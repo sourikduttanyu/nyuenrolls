@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Info Form</title>
+</head>
+<body style="padding: 5rem 30rem;">
+    <h2 style="color: rgb(3, 3, 3); ">Enter User Information</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}  <!-- Renders the form fields -->
+        <button type="submit" style="background-color: #bbe9f4; border-radius: 5px; ">Submit</button>
+    </form>
+</body>
+</html>
