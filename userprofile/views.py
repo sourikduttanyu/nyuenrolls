@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
-from .forms import UserInfoForm
+from .forms import UserInfoForm, create_user_form
+from django.contrib.auth.forms import UserCreationForm 
 
 def userinfo(request):
     return HttpResponse("Hello World")
@@ -11,8 +12,25 @@ def user_info_view(request):
         form = UserInfoForm(request.POST)
         if form.is_valid():
             form.save()  # Save the data to the database
-            return HttpResponse('User information has been saved successfully!')
+            form = UserInfoForm()    
     else:
         form = UserInfoForm()
 
     return render(request, 'user_info_form.html', {'form': form})
+
+def login_request(request):
+    context = {}
+    return render(request,'login.html',context)
+
+def register_request(request):
+    form = create_user_form()
+
+    if request.method =="POST":
+        form =  create_user_form(request.POST)
+        if form.is_valid():
+            form.save()
+
+
+
+    context ={'form': form}
+    return render(request,'register.html',context)

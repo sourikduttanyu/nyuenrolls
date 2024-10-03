@@ -1,6 +1,8 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 from .models import user_info
-
+ 
 class UserInfoForm(forms.ModelForm):
     class Meta:
         model = user_info
@@ -12,3 +14,9 @@ class UserInfoForm(forms.ModelForm):
             'Education_Level': forms.Select(),
             'School': forms.Select(),
         }
+
+class create_user_form(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ['username','email','password1','password2']
+        
