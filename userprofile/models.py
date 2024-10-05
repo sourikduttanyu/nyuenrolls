@@ -27,7 +27,7 @@ class course_info(models.Model):
     course_Capacity = models.IntegerField(max_length=3)
     phd_course_capacity = models.IntegerField(max_length=3)
     #Establish a foreign key for User_info 
-    ta = models.ForeignKey(choices=ta)
+    # ta = models.ForeignKey(choices=ta)
     class_day = models.DateField()
     class_time = models.TimeField()
     students = models.ManyToManyField(user_info,)
@@ -40,10 +40,10 @@ class faculty_info(models.Model):
     email = models.EmailField(max_length=100)
     Phone_no = models.IntegerField(max_length=12)
     #Foreign keys to establish for
-    ta = models.ForeignKey(ta,)
+    # ta = models.ForeignKey(ta,)
 
 
-class admin_info(models.Models):
+class admin_info(models.Model):
     admin_id = models.CharField(primary_key=True)
     Name = models.CharField(max_length=100)
     email = models.EmailField(max_length=100)
