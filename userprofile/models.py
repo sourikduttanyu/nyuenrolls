@@ -1,6 +1,6 @@
 from django.db import models
 
-class user_info(models.Model):
+class StudentInfo(models.Model):
     Edu_levels = [("Undergraduate","Undergraduate"),
                   ("Graduate","Graduate"),
                   ("PHD","PHD")]
@@ -15,47 +15,32 @@ class user_info(models.Model):
     Education_Level = models.CharField(max_length=50, choices=Edu_levels)
     Phone_no = models.IntegerField()
     School = models.CharField(max_length=50, choices=Schools)
-    
-    # A user can be a TA for one course
-    ta_course = models.ForeignKey('course_info', null=True, blank=True, on_delete=models.SET_NULL)
+    ta_course = models.ForeignKey('CourseInfo', null=True, blank=True, on_delete=models.SET_NULL)
     is_ta = models.BooleanField(default=False)
-    
-    # Many-to-Many relationship with courses
-    course_enrolled = models.ManyToManyField('course_info')
+    course_enrolled = models.ManyToManyField('CourseInfo', related_name='enrolled_students')
 
-class course_info(models.Model):
+class CourseInfo(models.Model):
     course_id = models.CharField(max_length=11, primary_key=True)
     name = models.CharField(max_length=100)
-    Instructor = models.OneToOneField('faculty_info', on_delete=models.CASCADE, related_name='course')
+    Instructor = models.OneToOneField('FacultyInfo', on_delete=models.SET_NULL, related_name='course', null=True)
     course_Capacity = models.IntegerField()
     phd_course_capacity = models.IntegerField()
     class_day = models.DateField()
     class_time = models.TimeField()
-    
-    # Many-to-Many relationship for TAs
-    ta_students = models.ManyToManyField(user_info, related_name='ta_students')
-    students = models.ManyToManyField(user_info,related_name='course_enrolled')
+    ta_students = models.ManyToManyField(StudentInfo, related_name='ta_students')
     description = models.CharField(max_length=1000)
     credits = models.DecimalField(decimal_places=1, max_digits=3)
 
-class faculty_info(models.Model):
+class FacultyInfo(models.Model):
     faculty_id = models.CharField(max_length=8, primary_key=True)
     Name = models.CharField(max_length=100)
     email = models.EmailField(max_length=100)
     Phone_no = models.IntegerField()
+    ta_students = models.ManyToManyField(StudentInfo, related_name='faculty_tas')
+    courses_taught = models.ManyToManyField(CourseInfo, related_name="instructors")
 
-    # A faculty can have multiple TAs (students)
-    ta_students = models.ManyToManyField(user_info, related_name='faculty_tas')
-    course = models.ManyToManyField(course_info,related_name="course_taught")
-    
-
-
-class admin_info(models.Model):
+class AdminInfo(models.Model):
     admin_id = models.CharField(primary_key=True)
     Name = models.CharField(max_length=100)
     email = models.EmailField(max_length=100)
     Phone_no = models.IntegerField(max_length=12)
-   
-
-
-
