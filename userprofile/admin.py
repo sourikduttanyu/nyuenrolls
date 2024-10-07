@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import user_info
+from .models import StudentInfo
 
-@admin.register(user_info)
+@admin.register(StudentInfo)
 class UserInfoAdmin(admin.ModelAdmin):
     list_display = ['N_id', 'Name', 'email', 'Education_Level', 'Phone_no', 'School']
