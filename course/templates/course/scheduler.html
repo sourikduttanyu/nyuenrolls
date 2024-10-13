@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Scheduler</title>
+    <link rel="stylesheet" href="{% static 'course/scheduler.css' %}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-left">
+            <h2>Course Enrollment App</h2>
+        </div>
+        <div class="nav-right">
+            <a href="/dashboard">Dashboard</a>
+            <a href="#">Profile</a>
+            <a href="#">Logout</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="sidebar">
+            <button id="add-course-btn">Add Course</button>
+            <div id="course-selector" class="hidden">
+                <div>
+                    <label for="departments">Select Department:</label>
+                    <select id="departments"></select>
+                </div>
+            
+                <div>
+                    <label for="courses">Select Course:</label>
+                    <select id="courses" disabled></select>
+                </div>
+            
+                <div>
+                    <label for="sections">Select Section:</label>
+                    <select id="sections" disabled></select>
+                </div>
+                
+            </div>
+
+            <h3>Selected Courses</h3>
+            <ul id="selected-courses"></ul>
+        </div>
+
+        <div class="scheduler">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>Monday</th>
+                        <th>Tuesday</th>
+                        <th>Wednesday</th>
+                        <th>Thursday</th>
+                        <th>Friday</th>
+                        <th>Saturday</th>
+                    </tr>
+                </thead>
+                <tbody id="schedule-body"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="{% static 'course/scheduler.js' %}"></script>
+</body>
+</html>
