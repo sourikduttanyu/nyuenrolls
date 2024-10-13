@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Enrollment Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'course/styles.css' %}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-left">
+            <h2>Course Enrollment App</h2>
+        </div>
+        <div class="nav-right">
+            <a href="#">Profile</a>
+            <a href="#">Logout</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="buttons">
+            <button onclick="location.href='/dashboard/scheduler'">Course Scheduler</button>
+            <button>Course Preregistration</button>
+            <button>Enroll Courses</button>
+            <button>Override Forms</button>
+        </div>
+
+        <h3>Enrolled Courses</h3>
+        <table class="courses-table">
+            <thead>
+                <tr>
+                    <th>Course Code</th>
+                    <th>Section</th>
+                    <th>Course Name</th>
+                    <th>Instructor</th>
+                    <th>Credits</th>
+                    <th>Course TAs</th>
+                    <th>Weekly Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>CS-GY 6813</td>
+                    <td>I2</td>
+                    <td>Information Security and Privacy</td>
+                    <td>Prof. Smith</td>
+                    <td>3</td>
+                    <td>No TA assigned yet</td>
+                    <td>Fri 14:00-16:30</td>
+                </tr>
+                <tr>
+                    <td>CS-GY 6233</td>
+                    <td>A</td>
+                    <td>Software Engineering I</td>
+                    <td>Prof. Doe</td>
+                    <td>3</td>
+                    <td>Joe Doe, Doe Joe</td>
+                    <td>Wed 18:00-20:30</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Waitlisted Courses</h3>
+        <table class="courses-table">
+            <thead>
+                <tr>
+                    <th>Course Code</th>
+                    <th>Course Name</th>
+                    <th>Section</th>
+                    <th>Queue</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>CS-GY 6223</td>
+                    <td>Machine Learning</td>
+                    <td>INET</td>
+                    <td>#14</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
