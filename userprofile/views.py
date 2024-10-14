@@ -1,41 +1,32 @@
-from django.shortcuts import render,redirect
-from django.http import HttpResponse
-from django.template import loader
-from .forms import UserInfoForm, create_user_form
-from django.contrib.auth.forms import UserCreationForm 
+from django.shortcuts import render, redirect
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib import messages
 
-def userinfo(request):
-    return HttpResponse("Hello World")
-
-def user_info_view(request):
+def login_view(request):
     if request.method == 'POST':
-        form = UserInfoForm(request.POST)
+        form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
-            form.save()  # Save the data to the database
-            form = UserInfoForm
-               
+            user = form.get_user()
+            login(request, user)
+            return redirect('dashboard')  # Redirect to the course dashboard after login
+        else:
+            messages.error(request, 'Invalid username or password')
     else:
-        form = UserInfoForm()
+        form = AuthenticationForm()
+    
+    return render(request, 'userprofile/login.html', {'form': form})
 
-    return render(request, 'user_info_form.html', {'form': form})
-
-def login_request(request):
-    context = {}
-    return render(request,'login.html',context)
-
-def register_request(request): 
-    form = create_user_form()
-
-    if request.method =="POST":
-        form =  create_user_form(request.POST)
+def register_view(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            user_name = form.cleaned_data.get('username')
-            messages.success(request, 'Account for' +user_name+ 'created' )
+            messages.success(request, 'Account created successfully! You can now log in.')
             return redirect('login')
+        else:
+            messages.error(request, 'Please correct the error(s) below.')
     else:
-        form = UserInfoForm()
-
-    context ={'form': form}
-    return render(request,'register.html',context)
+        form = UserCreationForm()
+    
+    return render(request, 'userprofile/register.html', {'form': form})

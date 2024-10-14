@@ -78,9 +78,9 @@ WSGI_APPLICATION = 'project.wsgi.application'
 DATABASES = {
     'default': {
          'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'myproject',
-        'USER': 'myprojectuser',
-        'PASSWORD': 'Janu@123',
+        'NAME': 'softwareengineering',
+        'USER': 'sourik',
+        'PASSWORD': '12345678',
         'HOST': 'localhost',
         'PORT': '',    }
 }
@@ -127,3 +127,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+LOGIN_REDIRECT_URL = '/course/dashboard/'  # Redirect after successful login
+LOGOUT_REDIRECT_URL = '/userprofile/login/'  # Optional, redirect after logout
+LOGIN_URL = 'login'
